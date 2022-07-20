@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }).fail(function (error) {
                             window.alert(error.message);
                             clearEditor();
-                        })
+                        });
 
                         /* axios.post(container.dataset.send.toString(), formData, {
                              onUploadProgress: function (progressEvent) {
