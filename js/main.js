@@ -104,22 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             alert(error.message);
                         });
 
-                        /*  axios.post(container.dataset.checked.toString(), {_matricule: _matricule.value.toString()})
-                              .then(resp => {
-                                  if (resp.data.matricule === null) {
-                                      alert(resp.data.message);
-                                      _checked.removeAttribute("disabled");
-                                  } else {
-                                      matricule = resp.data.matricule;
-                                      if (matricule !== null) file.click();
-                                  }
-                              })
-                              .catch(error => {
-                                  _checked.removeAttribute("disabled");
-                                  matricule = null;
-                                  alert(error.message);
-                              });*/
-
                     } else alert("Les champs matricules doivent contenir 4 caractères");
                 } else {
                     matricule = null;
@@ -178,21 +162,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             window.alert(error.message);
                             clearEditor();
                         });
-
-                        /* axios.post(container.dataset.send.toString(), formData, {
-                             onUploadProgress: function (progressEvent) {
-                                 const percent = (progressEvent.loaded / progressEvent.total) * 100;
-                                 progress.style.width = "" + percent + "%";
-                             }
-                         })
-                             .then(response => {
-                                 if (response.data) {
-                                     clearEditor();
-                                 }
-                             })
-                             .catch(error => {
-                                 window.alert(error.message);
-                             });*/
 
                     }, file.files[0].type, 'high');
                 }
