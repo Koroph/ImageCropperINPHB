@@ -1,7 +1,8 @@
 @import 'cropperjs/dist/cropper.css';
+@import 'sweetalert2/src/sweetalert2.scss';
 
-$box-width:575px;
-$max-box-width:1020px;
+$box-width: 575px;
+$max-box-width: 1020px;
 body {
   padding: 0;
   margin: 0;
@@ -15,62 +16,74 @@ img {
   max-width: 100%;
 }
 
-#picture-resizing-box{
- display: flex;
+#picture-resizing-box {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   #picture-resizing {
     display: flex;
     max-width: $max-box-width;
     padding: 16px;
-    margin-top: 16px;
+    margin-top: 8px;
     position: relative;
-    #picture-resizing-editor {
-      width:$box-width;
-      height:$box-width;
 
-      img{
+    #picture-resizing-editor {
+      width: $box-width;
+      height: $box-width;
+      aspect-ratio: 1/1;
+
+      img {
         min-width: 255px;
         min-height: 255px;
       }
-      #picture-resizing-editor-action{
+
+      #picture-resizing-editor-action {
         display: flex;
         justify-content: flex-end;
         padding: 16px;
         position: relative;
-        button{
+        z-index: 1;
+
+        button {
           border: none;
           padding: 10px 24px;
           font-weight: 600;
           margin: 0 4px;
           border-radius: 2px;
-          box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+          box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
           display: inline-block;
           font-size: 1rem;
 
-          &:last-child{
+          &:last-child {
             background-color: #018601;
             color: #ffffff;
-            &:disabled{
-              color: rgba(#ffffff,0.5);
+
+            &:disabled {
+              color: rgba(#ffffff, 0.5);
             }
-            &:hover{
+
+            &:hover {
               background-color: #016901;
             }
           }
-          &:first-child{
+
+          &:first-child {
             background-color: #dedede;
             color: #000000;
-            &:disabled{
-              color: rgba(#000000,0.5);
+
+            &:disabled {
+              color: rgba(#000000, 0.5);
             }
-            &:hover{
+
+            &:hover {
               background-color: #cecece;
             }
           }
         }
-        #picture-resizing-editor-progress{
+
+        #picture-resizing-editor-progress {
           height: 6px;
           width: 0;
           background-color: #018601;
@@ -81,56 +94,66 @@ img {
         }
       }
     }
+
     #picture-resizing-preview {
       margin: 8px;
+
       #preview-image {
         border-radius: 2px;
         overflow: hidden;
         height: 125px;
         width: 105px;
-        border: 3px solid rgba(0,0,0,0.2);
-        box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+        border: 3px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
       }
     }
-    #picture-resizing-file-box{
+
+    #picture-resizing-file-box {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
       background-color: #d2d2d2;
-      box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+      box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      &:hover{
-        >div{
+      z-index: 8;
+
+      &:hover {
+        > div {
           border: 2px dotted #0a0a0a;
-          svg{
+
+          svg {
             fill: #0a0a0a;
           }
         }
       }
-      >div{
+
+      > div {
         border: 2px dotted #545454;
         padding: 16px;
         border-radius: 2px;
-        svg{
+
+        svg {
           fill: #545454;
         }
       }
     }
   }
-  #picture-resizing-box-checked{
+
+  #picture-resizing-box-checked {
     margin-top: 32px;
     padding: 16px;
     width: auto;
     background-color: #ffffff;
-    box-shadow: 1px 1px 6px rgba(0,0,0,0.16);
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.16);
     display: flex;
     border-radius: 2px;
-    input{
+
+    input {
       flex: 1;
       padding: 8px 0;
       border: 2px solid #d2d2d2;
@@ -138,12 +161,14 @@ img {
       box-sizing: content-box;
       text-align: center;
       font-size: 1rem;
-      &:focus{
+
+      &:focus {
         outline: none;
         border-color: #0d6efd;
       }
     }
-    button{
+
+    button {
       border: 2px solid #0d6efd;
       padding: 0 16px;
       font-weight: 600;
@@ -151,12 +176,14 @@ img {
       color: #ffffff;
       text-transform: uppercase;
       font-size: 1rem;
-      &:active{
+
+      &:active {
         background-color: #3d8bfd;
         border: 2px solid #3d8bfd;
       }
-      &:disabled{
-        color: rgb(#ffffff,0.5);
+
+      &:disabled {
+        color: rgb(#ffffff, 0.5);
         background-color: #3d8bfd;
         border: 2px solid #3d8bfd;
       }
@@ -165,27 +192,33 @@ img {
 }
 
 
-@media (max-width: 574.8px) {
-  $box-width:380px;
-  $max-box-width:475.98px;
-  #picture-resizing-box{
+@media screen and (max-width: 574.8px) {
+  $box-width: calc(100vw - 16px);
+  $max-box-width: 475.98px;
+  #picture-resizing-box {
+    width: 100%;
+
     #picture-resizing {
-      max-width: $max-box-width;
+      max-width: 100vw;
       padding: 6px;
       margin-top: 6px;
       flex-direction: column;
       align-items: center;
+
       #picture-resizing-editor {
-        width:$box-width;
-        height:$box-width;
+        width: $box-width;
+        height: auto;
         order: 2;
-        #picture-resizing-editor-action{
+
+        #picture-resizing-editor-action {
           padding: 6px;
         }
       }
+
       #picture-resizing-preview {
         margin: 6px;
         order: 1;
+
         #preview-image {
           border-radius: 2px;
           overflow: hidden;
@@ -193,42 +226,59 @@ img {
           width: 105px;
         }
       }
-    }
-    #picture-resizing-box-checked{
-      margin-top: 32px;
-      padding: 6px;
-      input{
-        font-size: 0.9rem;
+
+      #picture-resizing-file-box {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        right: 6px;
+        bottom: 6px;
       }
-      button{
-        padding: 0 12px;
-        font-size: 0.9rem;
+    }
+
+    #picture-resizing-box-checked {
+      margin-top: 32px;
+      padding: 4px;
+      width: $box-width;
+      input {
+        font-size: 0.8rem;
+        max-width: 30%;
+      }
+      button {
+        flex: 1 0;
+        padding: 0 6px;
+        font-size: 0.8rem;
       }
     }
   }
 }
 
-@media (min-width:575px) and (max-width: 767.98px) {
-  $box-width:578px;
-  $max-box-width:767.98px;
-  #picture-resizing-box{
+/*
+@media (min-width: 575px) and (max-width: 767.98px) {
+  $box-width: 578px;
+  $max-box-width: 767.98px;
+  #picture-resizing-box {
     #picture-resizing {
       max-width: $max-box-width;
       padding: 8px;
       margin-top: 8px;
       flex-direction: column;
       align-items: center;
+
       #picture-resizing-editor {
-        width:$box-width;
-        height:$box-width;
+        width: $box-width;
+        height: $box-width;
         order: 2;
-        #picture-resizing-editor-action{
+
+        #picture-resizing-editor-action {
           padding: 8px;
         }
       }
+
       #picture-resizing-preview {
         margin: 6px;
         order: 1;
+
         #preview-image {
           border-radius: 2px;
           overflow: hidden;
@@ -237,16 +287,19 @@ img {
         }
       }
     }
-    #picture-resizing-box-checked{
+
+    #picture-resizing-box-checked {
       margin-top: 32px;
       padding: 8px;
-      input{
+
+      input {
         font-size: 0.95rem;
       }
-      button{
+
+      button {
         padding: 0 14px;
         font-size: 0.95rem;
       }
     }
   }
-}
+}*/

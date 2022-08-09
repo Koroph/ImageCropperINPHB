@@ -1,4 +1,5 @@
 import Cropper from 'cropperjs';
+import Swal from 'sweetalert2/dist/sweetalert2'
 
 const jq = require('jquery');
 
@@ -7,15 +8,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById('picture-resizing-box-base'),
         content = `<div id="picture-resizing-box">
     <div id="picture-resizing-box-checked">
-        <input type="search" maxlength="4" id="_matricule" placeholder="Matricule">
-        <input type="search" maxlength="4" id="__matricule" placeholder="Matricule">
+        <input type="text" maxlength="4" id="_matricule" placeholder="Matricule">
+        <input type="text" maxlength="4" id="__matricule" placeholder="Matricule">
         <button id="_checked">
             <span>Verification</span>
         </button>
     </div>
     <div id="picture-resizing">
         <div id="picture-resizing-editor">
-            <img id="image" width="255" height="255" src="">
+            <img id="image" width="255" height="255" src="" alt="Image editor">
             <div id="picture-resizing-editor-action">
                 <div id="picture-resizing-editor-progress"></div>
                 <button id="picture-resizing-editor-action-cancel">Annuler</button>
@@ -47,13 +48,22 @@ document.addEventListener('DOMContentLoaded', function () {
             progress = document.getElementById('picture-resizing-editor-progress'),
             __matricule = document.getElementById('__matricule'),
             _checked = document.getElementById('_checked'),
-            fileBox = document.getElementById('picture-resizing-file-box');
+            fileBox = document.getElementById('picture-resizing-file-box'),
+            CONFIRM_TEXT = "OK",
+            ICON_TYPE_ERROR = "error",
+            FETCH_ERROR = "Veuillez vous connecter à internet et réessayer",
+            FETCH_ERROR_HELP = "Signaler ce problème à l'informaticien si l'erreur persiste",
+            ICON_TYPE_SUCCESS = "success";
         let cropper = null, matricule = null;
 
         if (image && file && fileBox) {
             fileBox.addEventListener('click', () => {
                 if (matricule !== null) file.click();
-                else window.alert('Veuillez saisir le matricule de l\'étudiant');
+                else Swal.fire({
+                    title: "Veuillez saisir le matricule de l'étudiant",
+                    icon: ICON_TYPE_ERROR,
+                    confirmButtonText: CONFIRM_TEXT
+                });
             });
             file.addEventListener('change', function (event) {
                 if (cropper === null) {
@@ -81,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             _checked.addEventListener('click', function () {
                 matricule = null;
+
                 const _matricule_value = _matricule.value.toString(),
                     __matricule_value = __matricule.value.toString();
                 if (_matricule_value !== "" && __matricule_value !== "" && _matricule_value === __matricule_value) {
@@ -92,7 +103,11 @@ document.addEventListener('DOMContentLoaded', function () {
                             data: {_matricule: _matricule.value.toString()}
                         }).done(function (response) {
                             if (response.matricule === null) {
-                                alert(response.message);
+                                Swal.fire({
+                                    title: response.message,
+                                    icon: ICON_TYPE_ERROR,
+                                    confirmButtonText: CONFIRM_TEXT
+                                });
                                 _checked.removeAttribute("disabled");
                             } else {
                                 matricule = response.matricule;
@@ -101,13 +116,26 @@ document.addEventListener('DOMContentLoaded', function () {
                         }).fail(function (error) {
                             _checked.removeAttribute("disabled");
                             matricule = null;
-                            alert(error.message);
+                            Swal.fire({
+                                title: FETCH_ERROR,
+                                text: FETCH_ERROR_HELP,
+                                icon: ICON_TYPE_ERROR,
+                                confirmButtonText: CONFIRM_TEXT
+                            });
                         });
 
-                    } else alert("Les champs matricules doivent contenir 4 caractères");
+                    } else Swal.fire({
+                        title: 'Les champs matricules doivent contenir 4 caractères',
+                        icon: 'error',
+                        confirmButtonText: CONFIRM_TEXT
+                    });
                 } else {
                     matricule = null;
-                    window.alert('Les matricules sont différents')
+                    Swal.fire({
+                        title: 'Les matricules sont différents',
+                        icon: ICON_TYPE_ERROR,
+                        confirmButtonText: CONFIRM_TEXT
+                    });
                 }
             });
             cancel.addEventListener('click', function () {
@@ -157,9 +185,24 @@ document.addEventListener('DOMContentLoaded', function () {
                         }).done(function (response) {
                             if (response.error === null) {
                                 clearEditor();
-                            } else window.alert(response.message);
+                                Swal.fire({
+                                    title: "Enregistrement effectué avec succès",
+                                    timer: 1200,
+                                    icon: ICON_TYPE_SUCCESS,
+                                    showConfirmButton: false
+                                });
+                            } else Swal.fire({
+                                title: response.message,
+                                icon: ICON_TYPE_ERROR,
+                                confirmButtonText: CONFIRM_TEXT
+                            });
                         }).fail(function (error) {
-                            window.alert(error.message);
+                            Swal.fire({
+                                title: FETCH_ERROR,
+                                text: FETCH_ERROR_HELP,
+                                icon: ICON_TYPE_ERROR,
+                                confirmButtonText: CONFIRM_TEXT
+                            });
                             clearEditor();
                         });
 
