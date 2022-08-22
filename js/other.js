@@ -87,9 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         blob = _blob
                     }, imgFile.files[0].type, 'high');
                     modalContainer.style.display = "none";
-                    //imgFile.value = "";
-                    /*cropper = null;
-                    blob = null;*/
+
                 }
             });
 
