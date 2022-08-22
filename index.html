@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="build/css/other.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body data-send="">
+<body data-send="http://127.0.0.1:8000/api/upload-image" data-field="app-fields">
 
 
-<div id="image-cropper-view">
+<!--<div id="image-cropper-view">
     <form id="image-cropper-view-container">
+        <div id="progress-bar"></div>
         <div id="image-cropper-view-thumb">
             <div id="take-image-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="58px"
@@ -26,11 +27,11 @@
             </div>
             <input style="display: none;" accept="image/*" type="file" id="image-file">
             <div id="take-image-preview">
-               <!-- <img id="jjjj" width="105" height="125" src="./image/picture.jpg">-->
+               &lt;!&ndash; <img id="jjjj" width="105" height="125" src="./image/picture.jpg">&ndash;&gt;
             </div>
         </div>
         <div id="image-cropper-view-fields">
-           <div class="image-cropper-view-field-item">
+        &lt;!&ndash;   <div class="image-cropper-view-field-item">
                <label for="ma">Matricule</label>
                <input id="ma" placeholder="Saisir votre matricule" name="ma">
            </div>
@@ -41,7 +42,7 @@
             <div class="image-cropper-view-field-item">
                 <label for="named">Nom</label>
                 <input id="named" placeholder="Saisir votre nom" name="name">
-            </div>
+            </div>&ndash;&gt;
         </div>
         <div id="image-cropper-view-footer">
             <button type="reset">Annuler</button>
@@ -49,7 +50,6 @@
         </div>
     </form>
 </div>
-
 <div style="display: none;" id="image-cropper-modal-container">
     <div id="image-cropper-modal">
         <header id="image-cropper-modal-header">
@@ -68,8 +68,22 @@
             <button id="image-cropper-done">Terminer</button>
         </div>
     </div>
-</div>
+</div>-->
 
+<div id="app-fields" style="display: none;">
+    <div class="image-cropper-view-field-item">
+        <label for="ma">Matricule</label>
+        <input id="ma" placeholder="Saisir votre matricule" name="ma">
+    </div>
+    <div class="image-cropper-view-field-item">
+        <label for="name">Nom</label>
+        <input id="name" placeholder="Saisir votre nom" name="name">
+    </div>
+    <div class="image-cropper-view-field-item">
+        <label for="named">Nom</label>
+        <input id="named" placeholder="Saisir votre nom" name="name">
+    </div>
+</div>
 
 <!--<div id="picture-resizing-box-base"
      data-checked="http://127.0.0.1:8000/api/checked-matricule"

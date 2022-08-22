@@ -77,6 +77,14 @@ body {
 #image-cropper-view{
   display: flex;
   justify-content: center;
+  #progress-bar{
+    height: 4px;
+    width: 0;
+    background-color: var(--primary);
+    margin-bottom: 4px;
+    border-radius: 4px;
+    //transition: width 500ms linear;
+  }
   &#{'-container'}{
     width: 40vw;
     max-width: 708px;
@@ -113,7 +121,9 @@ body {
     }
     #image-cropper-view-fields{
       padding: 16px;
-
+      .app-field-container{
+        display: none;
+      }
       .image-cropper-view-field-item{
         margin-bottom: 8px;
         label{
@@ -167,6 +177,14 @@ body {
       padding: 16px;
     }
   }
+
+  #image-cropper-modal-container{
+    #image-cropper-modal{
+      width: 90vw;
+      max-width: 408px;
+      height: 100vw;
+    }
+  }
 }
 
 @media (min-width: 575px) and (max-width: 810px) {
@@ -177,6 +195,13 @@ body {
       width: 80vw;
       max-width: 680px;
       padding: 12px;
+    }
+  }
+  #image-cropper-modal-container{
+    #image-cropper-modal{
+      width: 70vw;
+      max-width: 680px;
+      height: 70vw;
     }
   }
 }
